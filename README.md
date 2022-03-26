@@ -3,12 +3,12 @@
 ## Members: 
 #### Group 100
 - Agrim Somani
-  UID: 3035946722
-  Username: AgrimSomani
+  - UID: 3035946722
+  - Username: AgrimSomani
 
 - Karanveer Singh
-  UID: 3035918622
-  Username: thekaranvs
+  - UID: 3035918622
+  - Username: thekaranvs
   
 ## Game Proposal
 We plan to implement a dungeon crawler adventure video game where the player has to complete all the levels to escape the dungeon and win the game.
