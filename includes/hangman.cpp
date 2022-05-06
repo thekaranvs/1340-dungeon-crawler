@@ -5,7 +5,7 @@
 #include <vector>
 using namespace std;
 
-string getRandomWord(string w[10], int &length)
+string getRandomWord(string w[10], int &length) // this function gets a random word from the words array
 {
     srand(time(NULL));
     int index = rand() % 10;
@@ -13,7 +13,7 @@ string getRandomWord(string w[10], int &length)
     return w[index];
 }
 
-void printMan(int guesses)
+void printMan(int guesses) // this function prints the hangman
 {
     switch (guesses)
     {
@@ -83,7 +83,7 @@ void printMan(int guesses)
     }
 }
 
-bool getGuesses(char *a, int &guesses, int length, vector<char> &b)
+bool getGuesses(char *a, int &guesses, int length, vector<char> &b) // this function serves to get the guesses of alphabets from the users and then comprehend it, and also returns true when out of guesses
 {
     string toPrint;
     int guessed = 0;
@@ -133,7 +133,7 @@ bool getGuesses(char *a, int &guesses, int length, vector<char> &b)
     return (guessed == length);
 }
 
-void endGame(bool r, string word)
+void endGame(bool r, string word) // this function serves to deal with when the game is over
 {
     transform(word.begin(), word.end(), word.begin(), ::toupper);
     cout << endl;

@@ -5,42 +5,42 @@
 #include <time.h>
 using namespace std;
 
-struct User
+struct User // a user strucutre which stores the users player string, its position on the board, and its previous position
 {
     string player;
     int position = 0;
     string prevPosition = "00";
 };
 
-void makeLadders(vector<int> &ladders)
+void makeLadders(vector<int> &ladders) // this function serves to make random ladders in the board
 {
     srand(time(NULL));
     for (int i = 0; i < 8; i++)
     {
-        int random = (rand() % 99) + 1;
-        while (count(ladders.begin(), ladders.end(), random) != 0 && random != 0)
+        int random = (rand() % 84) + 1;
+        while (count(ladders.begin(), ladders.end(), random) != 0)
         {
-            random = (rand() % 99) + 1;
+            random = (rand() % 84) + 1;
         }
         ladders.push_back(random);
     }
 }
 
-void makeSnakes(vector<int> &ladders, vector<int> &snakes)
+void makeSnakes(vector<int> &ladders, vector<int> &snakes) // this function serves to make random snakes in the board
 {
     srand(time(NULL));
     for (int i = 0; i < 8; i++)
     {
-        int random = (rand() % 99) + 1;
-        while (count(ladders.begin(), ladders.end(), random) != 0 && count(snakes.begin(), snakes.end(), random) != 0 && random != 0)
+        int random = (rand() % 84) + 15;
+        while (count(ladders.begin(), ladders.end(), random) != 0 && count(snakes.begin(), snakes.end(), random) != 0)
         {
-            random = (rand() % 99) + 1;
+            random = (rand() % 84) + 15;
         }
         snakes.push_back(random);
     }
 }
 
-void makeBoard(string b[100])
+void makeBoard(string b[100]) // makes the board array
 {
     vector<int> ladders;
     vector<int> snakes;
@@ -67,7 +67,7 @@ void makeBoard(string b[100])
     }
 }
 
-void printBoard(string board[100])
+void printBoard(string board[100]) // prints the board
 {
     cout << endl;
     for (int i = 99; i > -1; i--)
@@ -83,7 +83,7 @@ void printBoard(string board[100])
     }
 }
 
-void snakeOrLadder(string board[100], int &pos, string &prev, string player)
+void snakeOrLadder(string board[100], int &pos, string &prev, string player) // this is when a player lands on snakes or ladders, and is a helper function for the next function which makes moves in the board
 {
     int step;
     if (board[pos] == "LA")
@@ -108,7 +108,7 @@ void snakeOrLadder(string board[100], int &pos, string &prev, string player)
     }
 }
 
-void makeMove(string board[100], int &pos, string &prev, int move, string player)
+void makeMove(string board[100], int &pos, string &prev, int move, string player) // this makes the move in the board according to the roll of the player
 {
     board[pos - move] = prev;
     prev = board[pos];
@@ -119,7 +119,7 @@ void makeMove(string board[100], int &pos, string &prev, int move, string player
     board[pos] = player;
 }
 
-void playerMove(string board[100], int &pos, string &prev, string player)
+void playerMove(string board[100], int &pos, string &prev, string player) // this function is for the player to roll the dice, and it also takes care of the error handling
 {
     char roll;
     int move;

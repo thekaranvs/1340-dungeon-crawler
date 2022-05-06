@@ -4,7 +4,7 @@
 #include <algorithm>
 using namespace std;
 
-void printBoard(char b[9])
+void printBoard(char b[9]) // this function prints the board
 {
     for (int i = 0; i < 9; i++)
     {
@@ -21,7 +21,7 @@ void printBoard(char b[9])
     }
 }
 
-bool legitMove(char b[9], int index)
+bool legitMove(char b[9], int index) // this function checks wheter enetered move is legit or not
 {
     if (index < 0 || index > 8)
         return false;
@@ -30,7 +30,7 @@ bool legitMove(char b[9], int index)
     return true;
 }
 
-void placeMove(char b[9], int index, int turn)
+void placeMove(char b[9], int index, int turn) // this function places your move into the board
 {
     if (turn == 1)
         b[index] = 'X';
@@ -38,7 +38,7 @@ void placeMove(char b[9], int index, int turn)
         b[index] = 'O';
 }
 
-int checkColumn(char b[9])
+int checkColumn(char b[9]) // this function is to check each column for possible moves for the computer or if the column is full
 {
     for (int i = 0; i < 3; i++)
     {
@@ -52,7 +52,14 @@ int checkColumn(char b[9])
         }
         else if (count(check.begin(), check.end(), 'O') == 3)
             return -1;
-        else if (count(check.begin(), check.end(), 'O') == 2)
+    }
+    for (int i = 0; i < 3; i++)
+    {
+        vector<char> check;
+        check.push_back(b[i]);
+        check.push_back(b[i + 3]);
+        check.push_back(b[i + 6]);
+        if (count(check.begin(), check.end(), 'O') == 2)
         {
             for (int j = 0; j < 3; j++)
             {
@@ -76,7 +83,7 @@ int checkColumn(char b[9])
     return -2;
 }
 
-int checkRow(char b[9])
+int checkRow(char b[9]) // this function is to check each row for possible moves for the computer or if the row is full
 {
     for (int i = 0; i < 7; i += 3)
     {
@@ -88,7 +95,14 @@ int checkRow(char b[9])
             return -1;
         else if (count(check.begin(), check.end(), 'O') == 3)
             return -1;
-        else if (count(check.begin(), check.end(), 'O') == 2)
+    }
+    for (int i = 0; i < 7; i += 3)
+    {
+        vector<char> check;
+        check.push_back(b[i]);
+        check.push_back(b[i + 1]);
+        check.push_back(b[i + 2]);
+        if (count(check.begin(), check.end(), 'O') == 2)
         {
             for (int j = 0; j < 3; j++)
             {
@@ -112,7 +126,7 @@ int checkRow(char b[9])
     return -2;
 }
 
-int checkDiagonal(char b[9])
+int checkDiagonal(char b[9]) // this function is to check each diagonal for possible moves for the computer or if the diagonal is full
 {
     for (int i = 0; i < 3; i += 2)
     {
@@ -127,7 +141,17 @@ int checkDiagonal(char b[9])
             return -1;
         else if (count(check.begin(), check.end(), 'O') == 3)
             return -1;
-        else if (count(check.begin(), check.end(), 'O') == 2)
+    }
+    for (int i = 0; i < 3; i += 2)
+    {
+        vector<char> check;
+        check.push_back(b[i]);
+        check.push_back(b[4]);
+        if (i == 0)
+            check.push_back(b[i + 8]);
+        else
+            check.push_back(b[i + 4]);
+        if (count(check.begin(), check.end(), 'O') == 2)
         {
             for (int j = 0; j < 3; j++)
             {
@@ -137,7 +161,6 @@ int checkDiagonal(char b[9])
                 }
             }
         }
-
         else if (count(check.begin(), check.end(), 'X') == 2)
         {
             for (int j = 0; j < 3; j++)
@@ -152,7 +175,7 @@ int checkDiagonal(char b[9])
     return -2;
 }
 
-bool gameOver(char b[9])
+bool gameOver(char b[9]) // this function checks if the game is over
 {
     if (checkColumn(b) == -1)
         return true;
@@ -164,7 +187,7 @@ bool gameOver(char b[9])
         return false;
 }
 
-int nextMove(char b[9])
+int nextMove(char b[9]) // this function deals with the next move of the computer
 {
     if (checkColumn(b) > -1)
     {
