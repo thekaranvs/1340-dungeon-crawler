@@ -45,6 +45,6 @@ Please keep all the files and directories in this repository in the same directo
 Academy 21 server was used for testing.
 
 #### Compilation and Execution Instructions
-To compile the game, use the command: make game
-To execute it, run the command: ./game
+To compile the game, use the command: make game\
+To execute it, run the command: ./game\
 No non-standard C++ libraries were used and there are no special requirements.
