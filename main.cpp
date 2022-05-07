@@ -13,13 +13,20 @@ const int Dimension = 20;
 
 using namespace std;
 
+struct Player
+{
+    int health = 100;
+    int counter = 0;
+    int position = 0;
+};
+
 void HangMan(int &counter, int &health)
 {
     string words[10] = {"pointer", "array", "dynamic", "memory", "debugger", "structure", "recursion", "function", "linux", "programming"};
     vector<char> guessedAlphabets;
     int length, guesses = 0;
     cout << "Welcome to Hangman!" << endl;
-    cout << "A random word related to ENGG1340 is selected. You have 7 guesses before you die!" << endl;
+    cout << "A random word related to ENGG1340 is selected. You have 7 wrong guesses before you die!" << endl;
     string word = getRandomWord(words, length);
     char *hangman = new char[length];
     for (int i = 0; i < length; i++)
@@ -57,7 +64,7 @@ void WordSearch(int &counter, int &health)
 
     if (puzzles.fail())
     {
-        cout << "Error opening puzzles file.\nPlease proceed to next game :p" << endl;
+        cout << "Error opening puzzles file. We will give you a win in this case...\nPlease proceed to next game :p" << endl;
         counter++;
         return;
     }
@@ -187,7 +194,7 @@ void TicTacToe(int &counter, int &health)
     switch (turn)
     {
     case 0:
-        cout << "Congratulations, you beat the boss! No health is deducted";
+        cout << "Congratulations, you beat the boss!";
         break;
     case 1:
         cout << "You lost! 40 Point is deducted from your health.";
@@ -198,6 +205,7 @@ void TicTacToe(int &counter, int &health)
 
 void SnakesAndLadders(int &counter, int &health)
 {
+    cout << "Welcome to Snakes and Ladders! Press 'R' to roll the dice, and keep on rolling the dice until you reach the end of the board." << endl;
     User one;
     one.player = "P1";
     vector<User> users;
@@ -267,8 +275,8 @@ void RockPaperScissors(int &counter, int &health)
     }
     else
     {
-        cout << "HAHA, I win! You lose 20 health points!" << endl;
-        health -= 20;
+        cout << "HAHA, I win! You lose 40 health points!" << endl;
+        health -= 40;
     }
     counter++;
     return;
@@ -557,6 +565,7 @@ bool movePlayer(char a[Dimension * Dimension], string move, int &pos, int &healt
 
 int main()
 {
+    Player A;
     string gameTitle = R""""( _____                           _____ _           ______                                    
 |  ___|                         |_   _| |          |  _  \                                   
 | |__ ___  ___ __ _ _ __   ___    | | | |__   ___  | | | |_   _ _ __   __ _  ___  ___  _ __  
@@ -591,10 +600,9 @@ int main()
     cout << "FOR EXAMPLE, IF YOU WANT TO MOVE 3 PLACES RIGHT AND 3 PLACES DOWN, PRESS DDDSSS AND THEN CLICK ENTER\n";
     char maze[Dimension * Dimension];
     bool errorOpeningFile = false;
-    int pos = 0, health = 100, counter = 0;
     if (menuChoice == 2)
     {
-        if (!LoadGame(maze, pos, health, counter, games))
+        if (!LoadGame(maze, A.position, A.health, A.counter, games))
         {
             cout << "STARTING A NEW GAME INSTEAD" << endl;
             errorOpeningFile = true;
@@ -603,10 +611,7 @@ int main()
     if (menuChoice == 1 || errorOpeningFile)
     {
         makeMaze(maze);
-        maze[0] = 'P';
-        pos = 0;
-        health = 100;
-        counter = 0;
+        maze[A.position] = 'P';
         games.push_back("snakes");
         games.push_back("hangman");
         games.push_back("tic");
@@ -614,7 +619,7 @@ int main()
         games.push_back("rps");
     }
 
-    cout << "\nHEALTH : " << health << endl;
+    cout << "\nHEALTH : " << A.health << endl;
     printMaze(maze);
     bool gameOver = false, invalid = false;
 
@@ -631,7 +636,7 @@ int main()
         string move;
         cout << "\nENTER YOUR MOVE: ";
         cin >> move;
-        while (!movePlayer(maze, move, pos, health, games, counter, invalid))
+        while (!movePlayer(maze, move, A.position, A.health, games, A.counter, invalid))
         {
             if (!invalid)
             {
@@ -644,9 +649,9 @@ int main()
             cin >> move;
         }
         cout << "\nHEALTH : "
-             << health << endl;
+             << A.health << endl;
         printMaze(maze);
-        if (health <= 0 || counter == 5)
+        if (A.health <= 0 || A.counter == 5)
         {
             gameOver = true;
         }
@@ -654,13 +659,13 @@ int main()
     cout << endl
          << gameEnd << endl
          << endl;
-    if (health <= 0)
+    if (A.health <= 0)
     {
         cout << "YOU LOST! BETTER LUCK NEXT TIME" << endl;
     }
     else
     {
-        cout << "\nYOU COMPLETED " << counter << "/5 GAMES. YOUR HEALTH IS: " << health << endl;
+        cout << "\nYOU COMPLETED " << A.counter << "/5 GAMES. YOUR HEALTH IS: " << A.health << endl;
         cout << "YOU HAVE SUCCESFULLY COMPLETED ALL THE GAMES WITHOUT DYING! YOU ARE OUT OF THE DUNGEON!" << endl;
     }
 }
