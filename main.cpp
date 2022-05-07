@@ -4,6 +4,8 @@
 #include <vector>
 #include <algorithm>
 #include <time.h>
+#include <thread>
+#include <chrono>
 #include "includes/hangman.h"
 #include "includes/tic.h"
 #include "includes/snakes.h"
@@ -20,6 +22,14 @@ struct Player
     int position = 0;
 };
 
+/*
+    Function Name: HangMan
+    Function Description: Starts the game hangman and uses helper functions defined in hangman.cpp 
+    Input:
+            int health - stores the user's current health
+            int counter - stores the user's current counter (number of games completed)
+    Output: Prints out the required elements to play hangman (the stick figure, character placeholders etc.)
+*/
 void HangMan(int &counter, int &health)
 {
     string words[10] = {"pointer", "array", "dynamic", "memory", "debugger", "structure", "recursion", "function", "linux", "programming"};
@@ -77,6 +87,11 @@ void WordSearch(int &counter, int &health)
     bool answerPart = false;
     bool puzzleTitle = true;
 
+    cout << "YOU WILL HAVE ~60 s TO FIND AT LEAST 3 WORDS HIDDEN IN THE PUZZLES!" << endl;
+    cout << "GET READY!" << endl << endl;
+
+    this_thread::sleep_for(chrono::seconds(3));
+
     while (puzzles >> line)
     {
 
@@ -98,13 +113,14 @@ void WordSearch(int &counter, int &health)
 
         if (line == "*****")
         {
-
+            auto timeStart = chrono::steady_clock::now();
+	  
             answerPart = false;
             int correctAnswers = 0;
             puzzleTitle = true;
             while (correctAnswers < 3)
             {
-
+                
                 cout << "Enter a word (all capital): ";
                 string input;
                 cin >> input;
@@ -126,22 +142,38 @@ void WordSearch(int &counter, int &health)
                     if (correctAnswers < 3)
                         cout << " You have found " << correctAnswers << " of 3 required words. Find another word" << endl;
                     else
-                        cout << endl;
+                        cout << " You found 3 words!" << endl;
                 }
 
                 else
                 { // not found
                     cout << "Not one of the answers or not present lol :p" << endl;
                 }
+
             }
             answers.clear();
             userAnswers.clear();
+            auto timeEnd = chrono::steady_clock::now();
+	    
+            if (chrono::duration_cast<chrono::seconds>(timeEnd - timeStart).count() >= 60) {
+                    cout << "BUT YOU TOOK OVER 60 s! YOU LOSE 40 HEALTH POINTS." << endl;
+                    health -= 40;
+                    return;
+            }
         }
     }
     counter++;
     return;
 }
 
+/*
+    Function Name: TicTacToe
+    Function Description: Plays a game of tic-tac-toe with the player till either one wins
+    Input:
+            int health - stores the user's current health
+            int counter - stores the user's current counter (number of games completed)
+    Output: Prints the tic-tac-toe board and allows the user to place X's on the board while cpu places O's
+*/
 void TicTacToe(int &counter, int &health)
 {
     char board[9] = {'0', '1', '2', '3', '4', '5', '6', '7', '8'};
@@ -253,6 +285,10 @@ void RockPaperScissors(int &counter, int &health)
         char cpu = options[rand() % 3];
         cout << "CPU: " << cpu << endl;
 
+        if (userOption != 'R' && userOption != 'P' && userOption != 'S') {
+            cout << "INVALID INPUT. TRY AGAIN" << endl;
+            continue;
+        }
         if (userOption == cpu)
         {
             cout << "It's a draw! Let's try again" << endl;
@@ -648,13 +684,14 @@ int main()
             }
             cin >> move;
         }
-        cout << "\nHEALTH : "
-             << A.health << endl;
-        printMaze(maze);
         if (A.health <= 0 || A.counter == 5)
         {
             gameOver = true;
         }
+        cout << "\nHEALTH : "
+             << A.health << endl;
+        printMaze(maze);
+        
     }
     cout << endl
          << gameEnd << endl
