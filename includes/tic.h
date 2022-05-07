@@ -1,3 +1,6 @@
+#ifndef TIC_H
+#define TIC_H
+
 #include <vector>
 #include <iostream>
 
@@ -16,3 +19,5 @@ int checkDiagonal(char *);
 bool gameOver(char *);
 
 int nextMove(char *);
+
+#endif
