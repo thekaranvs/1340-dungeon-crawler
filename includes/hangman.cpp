@@ -5,7 +5,10 @@
 #include <vector>
 using namespace std;
 
-string getRandomWord(string w[10], int &length) // this function gets a random word from the words array
+// this function gets a random word from the words array
+// has an input of the array of possible words, and the length of the word chosen
+// returns the word chosen
+string getRandomWord(string w[10], int &length)
 {
     srand(time(NULL));
     int index = rand() % 10;
@@ -13,7 +16,10 @@ string getRandomWord(string w[10], int &length) // this function gets a random w
     return w[index];
 }
 
-void printMan(int guesses) // this function prints the hangman
+// this function prints the hangman
+// has an input of the variable guesses, which sotres the amount of wrong guesses made
+// no output since a void function
+void printMan(int guesses)
 {
     switch (guesses)
     {
@@ -82,8 +88,10 @@ void printMan(int guesses) // this function prints the hangman
         break;
     }
 }
-
-bool getGuesses(char *a, int &guesses, int length, vector<char> &b) // this function serves to get the guesses of alphabets from the users and then comprehend it, and also returns true when out of guesses
+// this function serves to get the guesses of alphabets from the users and then comprehend it, and also returns true when out of guesses
+// has an input of a pointer to a characther, the number of wrong guesses, the length of the chosen word and the vector b which keeps track of all the alphabets already guessed
+// has an output of true if word is guessed, or else false
+bool getGuesses(char *a, int &guesses, int length, vector<char> &b)
 {
     string toPrint;
     int guessed = 0;
@@ -133,7 +141,10 @@ bool getGuesses(char *a, int &guesses, int length, vector<char> &b) // this func
     return (guessed == length);
 }
 
-void endGame(bool r, string word) // this function serves to deal with when the game is over
+// this function serves to deal with when the game is over
+// has an input of a boolean which stores whether word was guessed or not, and the word which was needed to be guessed
+// no output since void function
+void endGame(bool r, string word)
 {
     transform(word.begin(), word.end(), word.begin(), ::toupper);
     cout << endl;
