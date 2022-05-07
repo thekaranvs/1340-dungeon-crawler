@@ -4,7 +4,10 @@
 #include <algorithm>
 using namespace std;
 
-void printBoard(char b[9]) // this function prints the board
+// this function prints the board
+// has an input of the board array
+// no output since a void fucntion
+void printBoard(char b[9])
 {
     for (int i = 0; i < 9; i++)
     {
@@ -21,7 +24,10 @@ void printBoard(char b[9]) // this function prints the board
     }
 }
 
-bool legitMove(char b[9], int index) // this function checks wheter enetered move is legit or not
+// this function checks wheter enetered move is legit or not
+// has an input of the board array and the index of the move
+// outputs true if its a legit move, or else outputs false
+bool legitMove(char b[9], int index)
 {
     if (index < 0 || index > 8)
         return false;
@@ -38,7 +44,10 @@ void placeMove(char b[9], int index, int turn) // this function places your move
         b[index] = 'O';
 }
 
-int checkColumn(char b[9]) // this function is to check each column for possible moves for the computer or if the column is full
+// this function is to check each column for possible moves for the computer or if the column is full
+// it has an input of the board array
+//// it outputs -1 if a column is filled with a player, if there is a possible move for the computer then it will output the index of the move, or else it will output -2
+int checkColumn(char b[9])
 {
     for (int i = 0; i < 3; i++)
     {
@@ -83,7 +92,10 @@ int checkColumn(char b[9]) // this function is to check each column for possible
     return -2;
 }
 
-int checkRow(char b[9]) // this function is to check each row for possible moves for the computer or if the row is full
+// this function is to check each row for possible moves for the computer or if the row is full
+// it has an input of the board array
+// it outputs -1 if a row is filled with a player, if there is a possible move for the computer then it will output the index of the move, or else it will output -2
+int checkRow(char b[9])
 {
     for (int i = 0; i < 7; i += 3)
     {
@@ -126,7 +138,10 @@ int checkRow(char b[9]) // this function is to check each row for possible moves
     return -2;
 }
 
-int checkDiagonal(char b[9]) // this function is to check each diagonal for possible moves for the computer or if the diagonal is full
+// this function is to check each diagonal for possible moves for the computer or if the diagonal is full
+// it has an input of the board array
+// it outputs -1 if a diagonal is filled with a player, if there is a possible move for the computer then it will output the index of the move, or else it will output -2
+int checkDiagonal(char b[9])
 {
     for (int i = 0; i < 3; i += 2)
     {
@@ -175,7 +190,10 @@ int checkDiagonal(char b[9]) // this function is to check each diagonal for poss
     return -2;
 }
 
-bool gameOver(char b[9]) // this function checks if the game is over
+// this function checks if the game is over
+// has an input of the board array
+// outputs true if a row, diagonal or a column is filled, or else outputs false
+bool gameOver(char b[9])
 {
     if (checkColumn(b) == -1)
         return true;
@@ -187,7 +205,10 @@ bool gameOver(char b[9]) // this function checks if the game is over
         return false;
 }
 
-int nextMove(char b[9]) // this function deals with the next move of the computer
+// this function deals with the next move of the computer
+// it has an input of the board array
+// has an output of the index of the computers next move
+int nextMove(char b[9])
 {
     if (checkColumn(b) > -1)
     {
