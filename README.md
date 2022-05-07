@@ -42,3 +42,4 @@ You must complete all 5 levels, which have their own specific challenges and min
 | Program codes in multiple files          | Helper functions for a few minigames such as Hangman, Tic Tac Toe and Snakes and Ladders is stored in 3 seperate source files, according to which game the fucntions are required for.|
 
 Please keep all the files and directories in this repository in the same directory in order for the makefile to work.
+Academy 21 server was used for testing.
