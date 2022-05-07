@@ -43,3 +43,8 @@ You must complete all 5 levels, which have their own specific challenges and min
 
 Please keep all the files and directories in this repository in the same directory in order for the makefile to work.
 Academy 21 server was used for testing.
+
+#### Compilation and Execution Instructions
+To compile the game, use the command: make game
+To execute it, run the command: ./game
+No non-standard C++ libraries were used and there are no special requirements.
