@@ -1,3 +1,6 @@
+#ifndef HANGMAN_H
+#define HANGMAN_H
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -9,3 +12,5 @@ void printMan(int);
 bool getGuesses(char *, int &, int, std::vector<char> &);
 
 void endGame(bool, std::string);
+
+#endif
